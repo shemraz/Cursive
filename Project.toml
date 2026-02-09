@@ -6,21 +6,15 @@ authors = ["shemraz <shem.raz@outlook.com>"]
 [deps]
 Chain = "8be319e6-bccf-4806-a6f7-6fae938471bc"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
-ImageBinarization = "cbc4b850-ae4b-5111-9e64-df94c024a13d"
 ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
-ImageFiltering = "6a3955dd-da59-5b1f-98d4-e7296123deb5"
 ImageIO = "82e4d734-157c-48bb-816b-45c225c6df19"
 ImageMorphology = "787d08f9-d448-5407-9aad-5290dd7ab264"
-ImageSmooth = "a14a6c0f-317a-4379-b4a0-4ba4e1e9b5ed"
 Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
 
 [compat]
 Chain = "1.0.0"
 FileIO = "1.18.0"
-ImageBinarization = "0.3.1"
 ImageCore = "0.10.5"
-ImageFiltering = "0.7.12"
 ImageIO = "0.6.9"
 ImageMorphology = "0.4.6"
-ImageSmooth = "0.1.1"
 Revise = "3.13.2"
