@@ -56,7 +56,7 @@ function apply_filter!(img::AbstractMatrix{RGB{N0f8}})::AbstractMatrix{RGB{N0f8}
     img .= Gray.(img) |> opening
 end
 
-function (@main)()
+function main()
     params = parse_cl()
     img = load(params[:path])
     result = extract!(
