@@ -3,28 +3,23 @@ uuid = "dae7fd06-b298-4c9e-8d3f-7ed6f6191f73"
 version = "0.1.0"
 authors = ["shemraz <shemraz@tuta.com>"]
 
+[apps]
+cursive = {}
+
 [deps]
 ArgMacros = "dbc42088-9de8-42a0-8ec8-2cd114e1ea3e"
-Chain = "8be319e6-bccf-4806-a6f7-6fae938471bc"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 FixedPointNumbers = "53c48c17-4a7d-5ca2-90c5-79b7896eea93"
 ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
 ImageIO = "82e4d734-157c-48bb-816b-45c225c6df19"
 ImageMorphology = "787d08f9-d448-5407-9aad-5290dd7ab264"
 ImageSegmentation = "80713f31-8817-5129-9cf8-209ff8fb23e1"
-Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 ArgMacros = "0.2.5"
-Chain = "1.0.0"
 FileIO = "1.18.0"
 FixedPointNumbers = "0.8.5"
 ImageCore = "0.10.5"
 ImageIO = "0.6.9"
 ImageMorphology = "0.4.6"
 ImageSegmentation = "1.10.0"
-Revise = "3.13.2"
-Test = "1.11.0"
-
-[apps.cursive]

@@ -32,7 +32,7 @@ function apply_filter!(img::AbstractMatrix{RGB{N0f8}})::AbstractMatrix{RGB{N0f8}
     img .= Gray.(img) |> opening
 end
 
-function main()
+function @main()
     @inlinearguments begin
         @argumentdefault Float64 12.5 difference "--difference" "-d"
         @arghelp "Maximum difference from mean background value to remove."
@@ -56,5 +56,3 @@ function main()
 end
 
 end # module Cursive
-
-Cursive.main()
