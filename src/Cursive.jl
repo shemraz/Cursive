@@ -68,3 +68,5 @@ function main()
 end
 
 end # module Cursive
+
+Cursive.main()
