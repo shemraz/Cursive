@@ -1,31 +1,7 @@
 module Cursive
 
-using ImageCore, FileIO, ImageMorphology, ImageSegmentation, FixedPointNumbers, ArgParse
+using ImageCore, FileIO, ImageMorphology, ImageSegmentation, FixedPointNumbers, ArgMacros
 
-function parse_cl()::Dict{Symbol,Any}
-    s = ArgParseSettings()
-
-    @add_arg_table s begin
-        "path"
-            help = "Path to input image."
-        "--output", "-o"
-            help = "Path to output image (must be PNG)."
-            arg_type = String
-            default = "./result.png"
-        "--difference", "-d"
-            help = "Maximum difference from mean background value to remove."
-            arg_type = Float64
-            default = 12.5
-        "--segment_threshold", "-s"
-            help = "Threshold for image segmentation algorithm (unseeded region growing). Used to determine mean background value."
-            arg_type = Float64
-            default = 0.2
-        "--preserve_colour"
-            help = "Prevents morphological filtering to preserve ink colour. Warning: less performant than default setting."
-            action = :store_true
-    end
-    return parse_args(s; as_symbols = true)
-end
 
 function sample(img::AbstractMatrix{RGB{N0f8}}, threshold::Float64)::RGB{N0f8}
     seg = unseeded_region_growing(img, threshold)
@@ -57,14 +33,26 @@ function apply_filter!(img::AbstractMatrix{RGB{N0f8}})::AbstractMatrix{RGB{N0f8}
 end
 
 function main()
-    params = parse_cl()
-    img = load(params[:path])
-    result = extract!(
-        img; difference=params[:difference],
-        threshold=params[:segment_threshold],
-        colour=params[:preserve_colour]
-    )
-    save(params[:output], result)
+    @inlinearguments begin
+        @argumentdefault Float64 12.5 difference "--difference" "-d"
+        @arghelp "Maximum difference from mean background value to remove."
+
+        @argumentdefault Float64 0.2 segment_threshold "--segment_threshold" "-s"
+        @arghelp "Threshold for image segmentation algorithm (unseeded region growing). Used to determine mean background value."
+
+        @argumentflag colour "--preserve_colour"
+        @arghelp "Skips morphological filtering to preserve colour of ink. Warning: less performant than default."
+
+        @positionalrequired String input "input_file"
+        @arghelp "Path to the input file."
+
+        @positionaldefault String "result.png" output "output_file" 
+        @arghelp "Path to the output file."
+    end
+    img = load(input)
+    result = extract!(img; difference=difference, threshold=segment_threshold, colour=colour)
+    save(output, result)
+    println("Saved ink to $output.")
 end
 
 end # module Cursive
