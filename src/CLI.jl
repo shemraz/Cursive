@@ -1,3 +1,4 @@
+using Pkg; Pkg.activate(".")
 using ArgMacros
 
 function main()

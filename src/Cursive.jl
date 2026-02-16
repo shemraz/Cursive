@@ -3,7 +3,6 @@ module Cursive
 using ImageCore, ImageMorphology, ImageSegmentation
 using FileIO, FixedPointNumbers
 
-
 function sample(img::AbstractMatrix{RGB{N0f8}}, threshold::Float64)::RGB{N0f8}
     seg = unseeded_region_growing(img, threshold)
     return seg.segment_means[1]
@@ -32,5 +31,7 @@ end
 function apply_filter!(img::AbstractMatrix{RGB{N0f8}})::AbstractMatrix{RGB{N0f8}}
     img .= Gray.(img) |> opening
 end
+
+export load, extract!
 
 end # module Cursive
