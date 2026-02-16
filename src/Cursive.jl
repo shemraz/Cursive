@@ -32,6 +32,6 @@ function apply_filter!(img::AbstractMatrix{RGB{N0f8}})::AbstractMatrix{RGB{N0f8}
     img .= Gray.(img) |> opening
 end
 
-export load, extract!
+include("CLI.jl")
 
 end # module Cursive

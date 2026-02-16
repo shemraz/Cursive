@@ -1,7 +1,6 @@
-using Pkg; Pkg.activate(".")
 using ArgMacros
 
-function main()
+function main(args)
     @inlinearguments begin
         @argumentdefault Float64 12.5 difference "--difference" "-d"
         @arghelp "Maximum difference from mean background value to remove."
@@ -23,7 +22,4 @@ function main()
     save(output, result)
     println("Saved ink to $output.")
 end
-
-include("Cursive.jl")
-using .Cursive
-main()
+@main
