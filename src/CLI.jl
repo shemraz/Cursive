@@ -25,6 +25,6 @@ function @main(ARGS)
     img = load(args.input)
     result = extract!(img; difference=args.difference, threshold=args.segment_threshold, colour=args.colour)
     save(args.output, result)
-    println("Saved ink to $(args.output).")
+    println("Saved image to $(args.output).")
     return 0
 end
