@@ -1,7 +1,7 @@
 using ArgMacros
 
-function main(args)
-    @inlinearguments begin
+function parse_args(ARGS::Vector{String})::@NamedTuple{difference::Float64, segment_threshold::Float64, colour::Bool, input::String, output::String}
+    args = @tuplearguments begin
         @argumentdefault Float64 12.5 difference "--difference" "-d"
         @arghelp "Maximum difference from mean background value to remove."
 
@@ -17,9 +17,14 @@ function main(args)
         @positionaldefault String "result.png" output "output_file" 
         @arghelp "Path to the output file."
     end
-    img = load(input)
-    result = extract!(img; difference=difference, threshold=segment_threshold, colour=colour)
-    save(output, result)
-    println("Saved ink to $output.")
+    return args
 end
-@main
+
+function @main(ARGS)
+    args = parse_args(ARGS)
+    img = load(args.input)
+    result = extract!(img; difference=args.difference, threshold=args.segment_threshold, colour=args.colour)
+    save(args.output, result)
+    println("Saved image to $(args.output).")
+    return 0
+end
