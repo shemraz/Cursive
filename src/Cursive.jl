@@ -2,6 +2,7 @@ module Cursive
 
 using ImageCore, ImageMorphology, ImageSegmentation
 using FileIO, FixedPointNumbers
+using ProgressMeter
 
 function sample(img::AbstractMatrix{RGB{N0f8}}, threshold::Float64)::RGB{N0f8}
     seg = unseeded_region_growing(img, threshold)
@@ -18,7 +19,7 @@ function extract!(
         apply_filter!(img)
     end
     σ = sample(img, threshold)
-    result = map(img) do px
+    result = @showprogress desc="Extracting ink from paper:" barglyphs=BarGlyphs("[━━ ]") map(img) do px
         if colordiff(px, σ) < difference
             RGBA(0, 0, 0, 0)
         else

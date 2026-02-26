@@ -1,6 +1,8 @@
 using ArgMacros
+using NativeFileDialog
+using StyledStrings
 
-function parse_args(ARGS::Vector{String})::@NamedTuple{difference::Float64, segment_threshold::Float64, colour::Bool, input::String, output::String}
+function parse_args(ARGS::Vector{String})::@NamedTuple{difference::Float64, segment_threshold::Float64, colour::Bool, input::Union{String,Nothing}, output::String}
     args = @tuplearguments begin
         @argumentdefault Float64 12.5 difference "--difference" "-d"
         @arghelp "Maximum difference from mean background value to remove."
@@ -11,7 +13,7 @@ function parse_args(ARGS::Vector{String})::@NamedTuple{difference::Float64, segm
         @argumentflag colour "--preserve_colour"
         @arghelp "Skips morphological filtering to preserve colour of ink. Warning: less performant than default."
 
-        @positionalrequired String input "input_file"
+        @positionaloptional String input "input_file"
         @arghelp "Path to the input file."
 
         @positionaldefault String "result.png" output "output_file" 
@@ -22,9 +24,15 @@ end
 
 function @main(ARGS)
     args = parse_args(ARGS)
-    img = load(args.input)
+    file = if isnothing(args.input)
+        pick_file()
+    else
+        args.input
+    end
+    println(styled"{bold,green:Processing} $file")
+    img = load(file)
     result = extract!(img; difference=args.difference, threshold=args.segment_threshold, colour=args.colour)
     save(args.output, result)
-    println("Saved image to $(args.output).")
+    println(styled"{bold,green:Success} Saved image to:\n\t$(abspath(args.output))")
     return 0
 end

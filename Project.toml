@@ -11,6 +11,9 @@ ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
 ImageIO = "82e4d734-157c-48bb-816b-45c225c6df19"
 ImageMorphology = "787d08f9-d448-5407-9aad-5290dd7ab264"
 ImageSegmentation = "80713f31-8817-5129-9cf8-209ff8fb23e1"
+NativeFileDialog = "e1fe445b-aa65-4df4-81c1-2041507f0fd4"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+StyledStrings = "f489334b-da3d-4c2e-b8f0-e476e12c162b"
 
 [compat]
 ArgMacros = "0.2.5"
@@ -20,5 +23,8 @@ ImageCore = "0.10.5"
 ImageIO = "0.6.9"
 ImageMorphology = "0.4.6"
 ImageSegmentation = "1.9.0"
+NativeFileDialog = "0.2.1"
+ProgressMeter = "1.11.0"
+StyledStrings = "1.11.0"
 
 [apps.cursive]
