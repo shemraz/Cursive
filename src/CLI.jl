@@ -2,8 +2,11 @@ using ArgMacros
 using NativeFileDialog
 using StyledStrings
 
-function parse_args(ARGS::Vector{String})::@NamedTuple{difference::Float64, segment_threshold::Float64, colour::Bool, input::Union{String,Nothing}, output::String}
+function parse_args(ARGS::Vector{String})::@NamedTuple{output::String, difference::Float64, segment_threshold::Float64, colour::Bool, input::Union{String,Nothing}}
     args = @tuplearguments begin
+        @argumentdefault String "result.png" output "--output" "-o"
+        @arghelp "Path to the output file."
+
         @argumentdefault Float64 12.5 difference "--difference" "-d"
         @arghelp "Maximum difference from mean background value to remove."
 
@@ -13,11 +16,9 @@ function parse_args(ARGS::Vector{String})::@NamedTuple{difference::Float64, segm
         @argumentflag colour "--preserve_colour"
         @arghelp "Skips morphological filtering to preserve colour of ink. Warning: less performant than default."
 
-        @positionaloptional String input "input_file"
+        @positionaloptional String input "input"
         @arghelp "Path to the input file."
 
-        @positionaldefault String "result.png" output "output_file" 
-        @arghelp "Path to the output file."
     end
     return args
 end
